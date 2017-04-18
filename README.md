@@ -1,4 +1,6 @@
-## boilerplate webpack setup - for multiple routes, express server, etc.
+# slowsite
+
+This is the slowest website on the internet.
 
 ### start development server:
 
