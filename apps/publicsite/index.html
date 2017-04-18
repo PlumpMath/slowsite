@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>app2</title>
+		<link href="css/style.css" media="all" rel="stylesheet" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+    <script src="//unpkg.com/vue@2.2.6/dist/vue.js"></script>
+    <script src="./js/Clicks.js"></script>
+    <script src="./js/main.js"></script>
+	</head>
+  <body>
+    <div id="wrapper">
+      <div id="pageimg"></div>
+      <div id="editor">
+        <textarea :value="input" @input="update"></textarea>
+        <div v-html="compiledMarkdown"></div>
+      </div>
+      <div id="clicks">
+        <div v-for="item in cursors">
+          <div class="cursor" :style="'left: ' + item.pos.x + 'px; top: ' +  item.pos.y + 'px'">X</div>
+        </div>
+      </div>
+    </div>
+	</body>
+</html>

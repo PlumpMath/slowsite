@@ -1,0 +1,48 @@
+@import 'reset.css';
+
+$pink: pink;
+$lightblue: #A2D5ED;
+$buttonbc: $lightblue;
+
+$backgc: $pink;
+
+html {
+  font-family: 'Cousine', 'monospace', sans-serif;
+  background: $backgc;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+#wrapper  {
+  padding: 50px ;
+  max-width: 1000px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#pageimg {
+  background: url("../assets/pages/page_ss001.jpg") no-repeat;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: white;
+  width: 50vmin;
+  height: 50vmin;
+
+}
+
+.cursor {
+  position: absolute;
+}
+
