@@ -62,6 +62,14 @@ if (require.main === module) {
       });
 		});
 
+		socket.on('getPaths', function (data) {
+      db.find({ 'type': 'path' }, function(err, docs) {
+        var data = {};
+				data.paths = docs;
+			  socket.emit('sendPaths', data); // send to just the person who responded
+      });
+		});
+
 		socket.on('disconnect', () => console.log('disconnect ' + socket.id));
 
   });

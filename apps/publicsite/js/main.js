@@ -3,7 +3,8 @@
 $(function () {
 
 
-  var socket = io("localhost:3000");
+  //var socket = io("localhost:3000");
+  var socket = io("192.168.1.4:3000");
   window.socket = socket;
 //      socket.emit('broadcast', {data: 'foo!'});
   socket.emit('echo', {data: 'ho'});
@@ -11,23 +12,8 @@ $(function () {
   socket.on('message', console.log.bind(console));
 
   Clicks.docReady();
+  Paths.docReady();
 
-  new Vue({
-      el: '#editor',
-      data: {
-            input: '# hello'
-          },
-      computed: {
-            compiledMarkdown: function () {
-                    return this.input + "BOO";
-                  }
-          },
-      methods: {
-            update: _.debounce(function (e) {
-                    this.input = e.target.value
-                  }, 300)
-          }
-  })
 
 });
 

@@ -33,7 +33,7 @@ body {
 }
 
 #pageimg {
-  background: url("../assets/pages/page_ss001.jpg") no-repeat;
+	 background: url("../assets/pages/page_ss001.jpg") no-repeat; 
   background-size: contain;
   background-repeat: no-repeat;
   background-color: white;
@@ -46,3 +46,6 @@ body {
   position: absolute;
 }
 
+.pt {
+  position: absolute;
+}

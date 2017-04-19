@@ -8,8 +8,12 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>
     <script src="//unpkg.com/vue@2.2.6/dist/vue.js"></script>
+    <script src="./js/libs/catmullrom2bezier.js"></script>
+    <script src="./js/libs/animate-object-path.js"></script>
     <script src="./js/Clicks.js"></script>
+    <script src="./js/Paths.js"></script>
     <script src="./js/main.js"></script>
 	</head>
   <body>
@@ -19,11 +23,23 @@
         <textarea :value="input" @input="update"></textarea>
         <div v-html="compiledMarkdown"></div>
       </div>
-      <div id="clicks">
-        <div v-for="item in cursors">
-          <div class="cursor" :style="'left: ' + item.pos.x + 'px; top: ' +  item.pos.y + 'px'">X</div>
-        </div>
+    </div>
+    <div id="clicks">
+      <div v-for="item in cursors">
+        <div class="cursor" :style="'left: ' + item.pos.x + 'px; top: ' +  item.pos.y + 'px'">O</div>
       </div>
     </div>
+
+    <div id="paths">
+		
+			<svg width="2000px" height="2000px" id="svg">
+					<path fill="none" stroke="#444" stroke-width="5" stroke-linejoin="round" :d="svgPath(thisPath)" />
+				<g v-for="item in paths">
+					<path fill="none" stroke="#AAA" stroke-width="2" stroke-linejoin="round" :d="svgPath(item.path)" />
+				</g>
+			</svg>
+	
+    </div>
+
 	</body>
 </html>
