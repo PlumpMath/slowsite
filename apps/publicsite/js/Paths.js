@@ -18,7 +18,7 @@ Paths.pushToQueue = function(val) {
   }
 }
 
-Paths.coordsToSvg = function(coords) {
+Paths.coordsToPath = function(coords) {
   if(coords == undefined || typeof(coords[0]) == "undefined" || typeof(coords[0][0]) == "undefined") return;
   var sp = "";
   sp += _.map(coords, function(v, i) {
@@ -29,11 +29,15 @@ Paths.coordsToSvg = function(coords) {
       return "";
     }
   }).join("");
-
-
-  console.log(sp);
-
   return sp;
+}
+
+Paths.coordsToSpline = function(coords) {
+  if(coords == undefined || typeof(coords[0]) == "undefined" || typeof(coords[0][0]) == "undefined") return;
+  var tolerance = 2;
+  var highestQuality = false;
+  var pathStr = SVGCatmullRomSpline.toPath(coords, tolerance, highestQuality);
+  return pathStr;
 }
 
 Paths.docReady = function() {
@@ -46,7 +50,7 @@ Paths.docReady = function() {
 			paths: []
     },
 		methods: {
-			svgPath: Paths.coordsToSvg
+			svgPath: Paths.coordsToSpline
     },
 		updated: function() {
 //			console.log("updated!!!");
@@ -60,7 +64,7 @@ Paths.docReady = function() {
 			thisPath: Paths.thisPath
     },
 		methods: {
-			svgPath: Paths.coordsToSvg
+			svgPath: Paths.coordsToPath
 		}
   })
 

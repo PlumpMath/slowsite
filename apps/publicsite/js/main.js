@@ -1,10 +1,15 @@
-global. _ = require('lodash');
-global. io = require('socket.io-client');
+global.$ = require('jquery');
+global._ = require('lodash');
+global.io = require('socket.io-client');
 global.Snap = require('snapsvg');
 global.Vue = require('vue');
-global. Clicks = require('./Clicks.js');
-global. Paths = require('./Paths.js');
-global.$ = require('jquery');
+global.d3Path = require('d3-path');
+global.d3Shape = require('d3-shape');
+global.SVGCatmullRomSpline = require('svg-catmull-rom-spline');
+
+
+global.Clicks = require('./Clicks.js');
+global.Paths = require('./Paths.js');
 
 $(function () {
   

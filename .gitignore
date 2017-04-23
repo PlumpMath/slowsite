@@ -3,3 +3,4 @@ config.codekit
 *-min.js
 *.swp
 .sass-cache
+*npm-debug.log
