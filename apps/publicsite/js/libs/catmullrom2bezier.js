@@ -53,7 +53,9 @@ function parsePath( path ) {
   var lastY = "";
 
   var d = path.getAttribute( "d" );
+  console.log(d);
   if ( -1 != d.search(/[rR]/) ) {
+    console.log("catrom");
     // no need to redraw the path if no Catmull-Rom segments are found
     
     // split path into constituent segments
@@ -98,6 +100,7 @@ function parsePath( path ) {
       }
     }
     // recombine path segments and set new path description in DOM
+    console.log(pathArray);
     path.setAttribute( "d", pathArray.join(" ") );
   }
 }

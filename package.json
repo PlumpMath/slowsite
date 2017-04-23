@@ -5,13 +5,22 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "watchify apps/publicsite/js/main.js --debug -v -o apps/publicsite/js/bundle.js & node server.js & wait"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "d3-shape": "^1.0.6",
     "express": "^4.15.2",
+    "jquery": "^3.2.1",
+    "lodash": "^4.17.4",
     "nedb": "^1.8.0",
-    "socket.io": "^1.7.3"
+    "snapsvg": "^0.5.1",
+    "socket.io": "^1.7.3",
+    "socket.io-client": "^1.7.3",
+    "vue": "^2.2.6"
+  },
+  "browser": {
+    "vue": "vue/dist/vue.common.js"
   }
 }

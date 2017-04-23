@@ -39,3 +39,4 @@ Clicks.receiveClicks = function(data) {
 };
 
 
+module.exports = Clicks;

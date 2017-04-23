@@ -1,7 +1,7 @@
 var Paths = {};
 Paths.cursors = [];
 Paths.thisPath = [];
-Paths.pathLengthMils = 5000;
+Paths.pathLengthMils = 2000;
 Paths.pathFreq = 30;
 Paths.pointCount = Paths.pathLengthMils / Paths.pathFreq;
 
@@ -11,14 +11,58 @@ Paths.handleMouseMove = function(e) {
 };
 
 Paths.pushToQueue = function(val) {
-  Paths.Vue.thisPath.push(val);
-  Paths.Vue.timeEnded = new Date();
-  if(Paths.Vue.thisPath.length > Paths.pointCount) { Paths.Vue.thisPath.shift(); }
+  if(val[0] != null) {
+    Paths.thisPath.push(val);
+    Paths.timeEnded = new Date();
+    if(Paths.thisPath.length > Paths.pointCount) { Paths.thisPath.shift(); }
+  }
+}
+
+Paths.coordsToSvg = function(coords) {
+  if(coords == undefined || typeof(coords[0]) == "undefined" || typeof(coords[0][0]) == "undefined") return;
+  var sp = "";
+  sp += _.map(coords, function(v, i) {
+    if(typeof(v[0]) != "undefined") {
+      if(i == 0) return "M" + v[0] + "," + v[1];
+      if(i > 0) return  " L" + v[0] + "," + v[1];
+    } else {
+      return "";
+    }
+  }).join("");
+
+
+  console.log(sp);
+
+  return sp;
 }
 
 Paths.docReady = function() {
 	Paths.tempCircle = Snap("#svg").paper.circle(10, 10, 10);
 
+  Paths.historyVue = new Vue({
+    el: '#historypaths',
+    data: {
+      timeEnded: new Date(),
+			paths: []
+    },
+		methods: {
+			svgPath: Paths.coordsToSvg
+    },
+		updated: function() {
+//			console.log("updated!!!");
+		}
+
+  })
+
+  Paths.thispathVue = new Vue({
+    el: '#thispath',
+    data: {
+			thisPath: Paths.thisPath
+    },
+		methods: {
+			svgPath: Paths.coordsToSvg
+		}
+  })
 
   $("html").mousemove(function(e){
      window.mouseX = e.pageX;
@@ -26,7 +70,6 @@ Paths.docReady = function() {
   });
 
   window.setInterval(function() {
-//    console.log(window.mouseX + "," + window.mouseY);
     Paths.pushToQueue([window.mouseX, window.mouseY]);
   }, Paths.pathFreq);
 
@@ -37,43 +80,15 @@ Paths.docReady = function() {
       'entry': {
         'type': 'path',
         'date': new Date(),
-        'path': Paths.Vue.thisPath
+        'path': Paths.thisPath
       }
     });
-    window.setTimeout(function() {
-      Paths.updatePaths();
-    }, 100);
+    Paths.updatePaths();
   });
 
   socket.on('sendPaths', Paths.receivePaths);
 
 	Paths.updatePaths();
-
-
-  Paths.Vue = new Vue({
-    el: '#paths',
-    data: {
-      timeEnded: new Date(),
-      thisPath: Paths.thisPath,
-			paths: []
-    },
-		methods: {
-			svgPath: function (p) {
-				if(typeof(p[0][0]) == "undefined") return;
-				var sp = "M" + p[0][0] + "," + p[0][1];
-				sp += _.map(p, function(v) {
-					if(typeof(v[0]) != "undefined") 
-					return "L" + v[0] + "," + v[1];
-				}).join("");
-				return sp;
-			}
-		},
-		updated: function() {
-//			console.log("updated!!!");
-		}
-
-  })
-
 
 };
 
@@ -81,12 +96,14 @@ Paths.docReady = function() {
 
 
 Paths.updatePaths = function() {
-  socket.emit("getPaths", {});
+  window.setTimeout(function() {
+    socket.emit("getPaths", {});
+  }, 100);
 };
 
 Paths.receivePaths = function(data) {
   console.log(data);
-	Paths.Vue.paths = data.paths;
+	Paths.historyVue.paths = data.paths;
 };
 
 Paths.triggerAnimate = function() {
@@ -113,3 +130,5 @@ Paths.animateAlongPath = function( path, element, start, dur ) {
 		}, dur,mina.easeinout); 
 	});
 } 
+
+module.exports = Paths; 

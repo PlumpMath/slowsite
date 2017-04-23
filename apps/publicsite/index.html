@@ -3,19 +3,14 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>app2</title>
+    <title>dantaeyoung.com : slowsite</title>
 		<link href="css/style.css" media="all" rel="stylesheet" />
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>
-    <script src="//unpkg.com/vue@2.2.6/dist/vue.js"></script>
-    <script src="./js/libs/catmullrom2bezier.js"></script>
-    <script src="./js/libs/animate-object-path.js"></script>
-    <script src="./js/Clicks.js"></script>
-    <script src="./js/Paths.js"></script>
-    <script src="./js/main.js"></script>
+    <!--<script src="../../bower_components/smooth.js/Smooth.js"></script>-->
+    <!--<script src="./js/libs/catmullrom2bezier.js"></script>-->
+    <!--<script src="./js/libs/animate-object-path.js"></script>-->
+    <script src="./js/bundle.js"></script>
 	</head>
+
   <body>
     <div id="wrapper">
       <div id="pageimg"></div>
@@ -30,15 +25,20 @@
       </div>
     </div>
 
-    <div id="paths">
-		
-			<svg width="2000px" height="2000px" id="svg">
-					<path fill="none" stroke="#444" stroke-width="5" stroke-linejoin="round" :d="svgPath(thisPath)" />
-				<g v-for="item in paths">
-					<path fill="none" stroke="#AAA" stroke-width="2" stroke-linejoin="round" :d="svgPath(item.path)" />
-				</g>
+    <div id="allpaths">
+			<svg  id="svg">
+
+        <g id="historypaths">
+          <g v-for="item in paths">
+            <path fill="none" stroke="#AAA" stroke-width="2" stroke-linejoin="round" :d="svgPath(item.path)" />
+          </g>
+        </g>
+
+        <g id="thispath">
+            <path fill="none" stroke="#444" stroke-width="5" stroke-linejoin="round" :d="svgPath(thisPath)" />
+        </g>
+
 			</svg>
-	
     </div>
 
 	</body>
