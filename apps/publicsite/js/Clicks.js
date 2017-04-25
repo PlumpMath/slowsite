@@ -1,5 +1,5 @@
 var Clicks = {};
-Clicks.cursors = [];
+Clicks.cursorclicks = [];
 
 Clicks.docReady = function() {
 
@@ -20,9 +20,9 @@ Clicks.docReady = function() {
   socket.on('sendClicks', Clicks.receiveClicks);
 
   Clicks.Vue = new Vue({
-    el: '#clicks',
+    el: '#cursorclicks',
     data: {
-      cursors: Clicks.cursors
+      cursorclicks: Clicks.cursorclicks
     }
   })
 
@@ -35,7 +35,7 @@ Clicks.updateClicks = function() {
 };
 
 Clicks.receiveClicks = function(data) {
-  Clicks.Vue.cursors = data.cursors;
+  Clicks.Vue.cursorclicks = data.cursorclicks;
 };
 
 

@@ -42,3 +42,18 @@ body {
   bottom: 0;
   height: 100%;
   width: 100%; }
+
+.historypath {
+  fill: none;
+  stroke: #888;
+  stroke-width: 2px;
+  stroke-linejoin: round;
+  opacity: 0.0; }
+
+.pathpointer {
+  width: 10px; }
+
+.cursorclick {
+  width: 30px;
+  height: 30px;
+  opacity: 0.1; }

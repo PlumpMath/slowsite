@@ -3,8 +3,6 @@ global._ = require('lodash');
 global.io = require('socket.io-client');
 global.Snap = require('snapsvg');
 global.Vue = require('vue');
-global.d3Path = require('d3-path');
-global.d3Shape = require('d3-shape');
 global.SVGCatmullRomSpline = require('svg-catmull-rom-spline');
 
 

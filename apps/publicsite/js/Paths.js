@@ -41,7 +41,6 @@ Paths.coordsToSpline = function(coords) {
 }
 
 Paths.docReady = function() {
-	Paths.tempCircle = Snap("#svg").paper.circle(10, 10, 10);
 
   Paths.historyVue = new Vue({
     el: '#historypaths',
@@ -50,10 +49,15 @@ Paths.docReady = function() {
 			paths: []
     },
 		methods: {
-			svgPath: Paths.coordsToSpline
+			svgPath: Paths.coordsToPath
     },
 		updated: function() {
-//			console.log("updated!!!");
+			var paths = Snap.selectAll("path");
+      paths.forEach(function(elem, i) {
+        Paths.startLoopTrace(elem);
+      });
+
+			console.log("updated!!!");
 		}
 
   })
@@ -96,6 +100,21 @@ Paths.docReady = function() {
 
 };
 
+Paths.startLoopTrace = function(elem) {
+  var origid = elem.node.id.split("_")[1];
+  if(origid == undefined) return;
+
+  var thisTotalLen = Snap.path.getTotalLength(elem);
+  Snap.animate(0, thisTotalLen, function(step) {
+    var moveToPoint = Snap.path.getPointAtLength( elem, step );
+    $("#pathpointer_" + origid).css("transform", "translate(" + moveToPoint.x + "px, " + moveToPoint.y + "px)");
+//    Snap("#circle_" + origid).transform('t' + moveToPoint.x + ',' + moveToPoint.y ) 
+  }, 5000, function(){
+
+      Paths.startLoopTrace(elem); // loop forever
+
+  });
+}
 
 
 
@@ -110,19 +129,6 @@ Paths.receivePaths = function(data) {
 	Paths.historyVue.paths = data.paths;
 };
 
-Paths.triggerAnimate = function() {
-	var rect = Snap("#svg").rect(60,0,20,20).attr({ fill: 'blue', opacity: 0 });
-
-	Snap.selectAll('path').forEach(function(p) {
-		var newRect = rect.clone().attr({ opacity : 1});
-		drawRect(newRect, p);
-	});
-
-	function drawRect( el, path ) {
-			el.drawAtPath(path, 7000, { callback: drawRect.bind(null, el, path) } );
-	};
-
-}
 
 Paths.animateAlongPath = function( path, element, start, dur ) {
 	var len = Snap.path.getTotalLength( path );

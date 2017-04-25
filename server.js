@@ -56,7 +56,7 @@ if (require.main === module) {
 		socket.on('getClicks', function (data) {
       db.find({ 'type': 'click' }, function(err, docs) {
         var data = {};
-        data.cursors = docs;
+        data.cursorclicks = docs;
         console.log(docs);
 			  socket.emit('sendClicks', data); // send to just the person who responded
       });
