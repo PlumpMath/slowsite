@@ -4,10 +4,13 @@ global.io = require('socket.io-client');
 global.Snap = require('snapsvg');
 global.Vue = require('vue');
 global.SVGCatmullRomSpline = require('svg-catmull-rom-spline');
-
+global.h337 = require('heatmap.js');
+global.Queue = require('fastqueue');
 
 global.Clicks = require('./Clicks.js');
-global.Paths = require('./Paths.js');
+global.LivePath = require('./LivePath.js');
+global.HistoryPaths = require('./HistoryPaths.js');
+global.Heatmap = require('./Heatmap.js');
 
 $(function () {
   
@@ -20,7 +23,9 @@ $(function () {
   socket.on('message', console.log.bind(console));
 
   Clicks.docReady();
-  Paths.docReady();
+  LivePath.docReady();
+  HistoryPaths.docReady();
+//  Heatmap.docReady();
 
 
 });
