@@ -54,7 +54,12 @@ if (require.main === module) {
 		});
 
 		socket.on('getClicks', function (data) {
-      db.find({ 'type': 'click' }, function(err, docs) {
+      if(data.limit == undefined) data.limit = 0;
+
+      db.find({ 'type': 'click' })
+        .sort({ 'date': -1})
+        .limit(data.limit)
+        .exec(function(err, docs) {
         var data = {};
         data.cursorclicks = docs;
         console.log(docs);
@@ -63,9 +68,11 @@ if (require.main === module) {
 		});
 
 		socket.on('getPaths', function (data) {
+      if(data.limit == undefined) data.limit = 0;
+
       db.find({ 'type': 'path' })
         .sort({ 'date': -1})
-        .limit(10)
+        .limit(data.limit)
         .exec(function(err, docs) {
           var data = {};
           data.paths = docs;

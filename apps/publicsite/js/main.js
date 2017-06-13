@@ -13,6 +13,12 @@ global.LivePath = require('./LivePath.js');
 global.HistoryPaths = require('./HistoryPaths.js');
 global.Heatmap = require('./Heatmap.js');
 
+global.Main = {};
+Main.settings = {};
+Main.settings.clicklimit = 20;
+Main.settings.pathlimit = 20;
+
+
 $(function () {
   
   var socket = io("localhost:3000");

@@ -48,7 +48,7 @@ HistoryPaths.startLoopTrace = function(elem) {
 
 HistoryPaths.updateHistoryPaths = function() {
   window.setTimeout(function() {
-    socket.emit("getPaths", {});
+    socket.emit("getPaths", { 'limit': Main.settings.pathlimit });
   }, 100);
 };
 

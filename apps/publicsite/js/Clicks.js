@@ -31,7 +31,7 @@ Clicks.docReady = function() {
 
 
 Clicks.updateClicks = function() {
-  socket.emit("getClicks", {});
+  socket.emit("getClicks", { 'limit': Main.settings.clicklimit });
 };
 
 Clicks.receiveClicks = function(data) {
