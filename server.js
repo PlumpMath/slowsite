@@ -63,11 +63,14 @@ if (require.main === module) {
 		});
 
 		socket.on('getPaths', function (data) {
-      db.find({ 'type': 'path' }, function(err, docs) {
-        var data = {};
-				data.paths = docs;
-			  socket.emit('sendPaths', data); // send to just the person who responded
-      });
+      db.find({ 'type': 'path' })
+        .sort({ 'date': -1})
+        .limit(10)
+        .exec(function(err, docs) {
+          var data = {};
+          data.paths = docs;
+          socket.emit('sendPaths', data); // send to just the person who responded
+        });
 		});
 
 		socket.on('disconnect', () => console.log('disconnect ' + socket.id));

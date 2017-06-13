@@ -1,7 +1,7 @@
 var LivePath = {};
 LivePath.thisPath = [];
-LivePath.pathLengthMils = 2000;
-LivePath.pathFreq = 50;
+LivePath.pathLengthMils = 1500;
+LivePath.pathFreq = 20;
 LivePath.pointCount = LivePath.pathLengthMils / LivePath.pathFreq;
 
 
@@ -39,8 +39,19 @@ LivePath.coordsToSpline = function(coords) {
   return pathStrr
 }
 
-LivePath.docReady = function() {
+LivePath.startMouseTracking = function() {
+  console.log("(re)starting mouse tracking");
+  if('mouseIntervalProcess' in LivePath) { clearInterval(LivePath.mouseIntervalProcess); }
+  LivePath.mouseIntervalProcess = window.setInterval(function() {
+    LivePath.pushToQueue([window.mouseX, window.mouseY]);
+  }, LivePath.pathFreq);
+}
 
+
+
+
+LivePath.docReady = function() {
+  
   LivePath.thispathVue = new Vue({
     el: '#thispath',
     data: {
@@ -72,15 +83,5 @@ LivePath.docReady = function() {
   });
 
 };
-
-LivePath.startMouseTracking = function() {
-  console.log("(re)starting mouse tracking");
-  if('mouseIntervalProcess' in LivePath) { clearInterval(LivePath.mouseIntervalProcess); }
-  LivePath.mouseIntervalProcess = window.setInterval(function() {
-    LivePath.pushToQueue([window.mouseX, window.mouseY]);
-  }, LivePath.pathFreq);
-}
-
-
 
 module.exports = LivePath; 

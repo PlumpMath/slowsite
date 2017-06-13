@@ -6,6 +6,7 @@ global.Vue = require('vue');
 global.SVGCatmullRomSpline = require('svg-catmull-rom-spline');
 global.h337 = require('heatmap.js');
 global.Queue = require('fastqueue');
+global.TWEEN = require('tween.js');
 
 global.Clicks = require('./Clicks.js');
 global.LivePath = require('./LivePath.js');
@@ -26,7 +27,12 @@ $(function () {
   LivePath.docReady();
   HistoryPaths.docReady();
 //  Heatmap.docReady();
+  //
 
+  function update() {
+    TWEEN.update();
+  }
+  setInterval(update, 33); // 33 milliseconds = ~ 30 frames per sec
 
 });
 
